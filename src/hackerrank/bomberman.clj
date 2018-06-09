@@ -29,9 +29,12 @@
          first)
     (repeat (count grid) (repeat (count (first grid)) 1))))
 
-(defn bomberMan [n grid]
+(defn flexible-bomberman [n grid transform]
     (->> grid
       (replace-grid {\. 0, \0 1})
-      (numbered-bomberman n)
+      (transform n)
       (replace-grid {0 \., 1 \0})
       stringify))
+
+(defn bomberMan [n grid]
+  (flexible-bomberman n grid numbered-bomberman))

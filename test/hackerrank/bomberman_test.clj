@@ -22,8 +22,12 @@
   (is (= (numbered-bomberman 3 [[1 0] [0 1]])
          [[0 0] [0 0]])))
 
+(deftest flexible-bomberman-test
+  (is (= (flexible-bomberman 3 ["00" ".."] (fn [n grid] grid))
+         "00\n..")))
+
 (deftest bomberman-test
-  (is (= (bomberMan 2 "0.0\n...")
+  (is (= (bomberMan 2 ["0.0" "..."])
          "000\n000")))
 
 (run-tests)
