@@ -9,6 +9,11 @@
 
   (testing "move-and-drop-greatest"
     (is (= (move-and-drop-greatest [4 1 2 3]) [1 2 3]))
-    (is (= (move-and-drop-greatest [1 3 2 4]) [3 1 2]))))
+    (is (= (move-and-drop-greatest [1 3 2 4]) [3 1 2])))
+
+  (testing "larrysArray"
+    (is (larrysArray [3 1 2]))
+    (is (larrysArray [1 3 4 2]))
+    (is (not (larrysArray [1 2 3 5 4])))))
 
 (run-tests)
