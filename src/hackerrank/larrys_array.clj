@@ -21,7 +21,7 @@
       :else (recur (rotate v i)))))
 
 (defn larrysArray [A]
-  (loop [v (vector (reverse A))]
+  (loop [v (vec (reverse A))]
     (condp = (count v)
       0 true
       1 true
