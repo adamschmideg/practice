@@ -6,10 +6,12 @@
 
 (defn absolutePermutation [n k]
   (let [nums (mapv inc (range n))]
-    (if (zero? k)
+    (cond
+      (zero? k)
       nums
-      (if (zero? (rem n (* 2 k)))
-        (let [chunks (partition (* 2 k) nums)]
-          (first (map swap chunks)))
-        -1))))
+      (zero? (rem n (* 2 k)))
+      (let [chunks (partition (* 2 k) nums)]
+         (first (map swap chunks)))
+      :else
+      -1)))
 
