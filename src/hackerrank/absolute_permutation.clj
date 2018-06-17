@@ -11,7 +11,7 @@
       nums
       (zero? (rem n (* 2 k)))
       (let [chunks (partition (* 2 k) nums)]
-         (first (map swap chunks)))
+         (apply concat (map swap chunks)))
       :else
-      -1)))
+      [-1])))
 
