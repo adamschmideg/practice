@@ -3,8 +3,8 @@
             [hackerrank.swap-nodes :refer :all]))
 
 (deftest add-node-test
-  (are [tree active-paths saved-paths tree-out active-paths-out saved-paths-out]
-    (let [[tree-result active-paths-result saved-paths-result] (add-node tree active-paths saved-paths :new)]
+  (are [tree active-paths saved-paths node tree-out active-paths-out saved-paths-out]
+    (let [[tree-result active-paths-result saved-paths-result] (add-node tree active-paths saved-paths node)]
       (is (= tree-result tree-out))
       (is (= active-paths-result active-paths-out))
       (is (= saved-paths-result saved-paths-out)))
@@ -13,6 +13,7 @@
     [[[:right]]
      [[:left :left], [:left :right]]]
     [[[:left]]]
+    :new
 
     {:val 1, :left {:val 3}, :right {:val :new}}
     [[]
@@ -24,6 +25,7 @@
     [[]
      [[:left :left], [:left :right], [:right :left], [:right :right]]]
     [[[:left] [:right]]]
+    :new
 
     {:val 1,
      :left {:val 2,
@@ -33,7 +35,17 @@
      [[:left :right], [:right :left], [:right :right]]
      [[:left :left :left] [:left :left :right]]]
     [[[:left] [:right]]
-     [[:left :left]]]))
+     [[:left :left]]]
+
+    ; add empty node
+    {:val 1}
+    [[[:left] [:right]]]
+    []
+    nil
+
+    {:val 1}
+    [[[:right]]]
+    []))
 
 (deftest next-path-test
   (are [path next] (is (= (next-path path) next)) ;(str "Got: "(next-path path))))
