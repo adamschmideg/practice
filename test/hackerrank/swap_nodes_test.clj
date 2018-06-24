@@ -8,7 +8,7 @@
       (is (= tree-result tree-out))
       (is (= active-paths-result active-paths-out))
       (is (= saved-paths-result saved-paths-out)))
-
+    ; simple
     {:val 1, :left {:val 3}}
     [[[:right]]
      [[:left :left], [:left :right]]]
@@ -17,7 +17,23 @@
     {:val 1, :left {:val 3}, :right {:val :new}}
     [[]
      [[:left :left], [:left :right], [:right :left], [:right :right]]]
-    [[[:left] [:right]]]))
+    [[[:left] [:right]]]
+
+    ; new level starts
+    {:val 1, :left {:val 2}, :right {:val 3}}
+    [[]
+     [[:left :left], [:left :right], [:right :left], [:right :right]]]
+    [[[:left] [:right]]]
+
+    {:val 1,
+     :left {:val 2,
+            :left {:val :new}}
+     :right {:val 3}}
+    [[]
+     [[:left :right], [:right :left], [:right :right]]
+     [[:left :left :left] [:left :left :right]]]
+    [[[:left] [:right]]
+     [[:left :left]]]))
 
 (deftest next-path-test
   (are [path next] (is (= (next-path path) next)) ;(str "Got: "(next-path path))))
