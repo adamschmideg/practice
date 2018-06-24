@@ -1,5 +1,16 @@
 (ns hackerrank.swap-nodes)
 
+(defn add-node [tree open-paths saved-paths node]
+  (if node
+    (let [last-level (dec (count saved-paths))
+          path (get-in open-paths [last-level 0])
+          tree-out (assoc-in tree (conj path :val) node)
+          open-paths-out (update-in open-paths [last-level] #(subvec % 1))
+          new-paths [(conj path :left) (conj path :right)]
+          open-paths-out (update-in open-paths-out [(inc last-level)] #(into % new-paths))
+          saved-paths-out (update-in saved-paths [last-level] #(conj % path))]
+      [tree-out open-paths-out saved-paths-out])))
+
 ; a vector of :left and :right
 (defn next-path [path]
   (let [i (.lastIndexOf path :left)]
