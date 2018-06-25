@@ -47,6 +47,14 @@
     [[[:right]]]
     []))
 
+(deftest parse-tree-test
+  (is (= (parse-tree [2 3 nil 4 nil 5 nil nil nil nil])
+        {:val 1
+         :left {:val 2
+                :right {:val 4}}
+         :right {:val 3
+                 :right {:val 5}}})))
+
 (deftest next-path-test
   (are [path next] (is (= (next-path path) next)) ;(str "Got: "(next-path path))))
     [:left :left] [:left :right]

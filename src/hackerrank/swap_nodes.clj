@@ -22,6 +22,14 @@
                             saved-paths)]
       [tree-out open-paths-out saved-paths-out]))
 
+(defn parse-tree [nodes]
+  (let [init [{:val 1}
+              [[[:left] [:right]]]
+              []]
+        f (fn [[tree open-paths saved-paths] node]
+            (add-node tree open-paths saved-paths node))]
+    (reduce f init nodes)))
+
 ; a vector of :left and :right
 (defn next-path [path]
   (let [i (.lastIndexOf path :left)]
@@ -37,14 +45,5 @@
   (->> (iterate next-path path)
     (drop-while #(get-in tree (butlast %)))))
 
-; return [tree path nodes]
-(defn parse-tree [tree path nodes]
-  (let [[head & tail] nodes]
-    (if head
-      (let [value (if (= -1 head) nil head)
-            tree (assoc-in tree path value)
-            path (next-existing-path tree path)]
-        (recur tree path tail))
-      [tree path []])))
 
 (defn swapNodes [indexes queries])
