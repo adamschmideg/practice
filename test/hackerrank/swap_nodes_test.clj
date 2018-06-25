@@ -48,12 +48,19 @@
     []))
 
 (deftest parse-tree-test
-  (is (= (parse-tree [2 3 nil 4 nil 5 nil nil nil nil])
-        {:val 1
-         :left {:val 2
-                :right {:val 4}}
-         :right {:val 3
-                 :right {:val 5}}})))
+  (are [nodes tree-expect saved-paths-expect]
+    (let [[tree-result _ saved-paths-result] (parse-tree nodes)]
+      (is (= tree-result tree-expect))
+      (is (= saved-paths-result saved-paths-expect)))
+
+    [2 3 nil 4 nil 5 nil nil nil nil]
+    {:val 1
+     :left {:val 2
+            :right {:val 4}}
+     :right {:val 3
+             :right {:val 5}}}
+    [[[:left] [:right]]
+     [[:left :right] [:right :right]]]))
 
 (deftest next-path-test
   (are [path next] (is (= (next-path path) next)) ;(str "Got: "(next-path path))))

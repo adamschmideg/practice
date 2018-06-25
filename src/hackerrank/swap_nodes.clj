@@ -18,7 +18,11 @@
                                        new-paths))
                            open-paths-out)
           saved-paths-out (if node
-                            (update-in saved-paths [last-level] #(conj % path))
+                            (update-in saved-paths
+                                       [last-level]
+                                       #(if %
+                                          (conj % path)
+                                          [path]))
                             saved-paths)]
       [tree-out open-paths-out saved-paths-out]))
 
