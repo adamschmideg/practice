@@ -34,6 +34,25 @@
             (add-node tree open-paths saved-paths node))]
     (reduce f init nodes)))
 
+(defn assoc-dissoc-in [m ks v]
+  (if (nil? v)
+    (let [parent-path (butlast ks)
+          parent (get-in m parent-path)]
+      (assoc-in m parent-path (dissoc parent (last ks))))
+    (assoc-in m ks v)))
+
+(defn swap-at [tree path]
+  (let [left-path (conj path :left)
+        right-path (conj path :right)
+        left (get-in tree left-path)
+        right (get-in tree right-path)]
+    (-> tree
+        (assoc-dissoc-in left-path right)
+        (assoc-dissoc-in right-path left))))
+
+(defn swap-nodes-at [tree paths level])
+
+
 ; a vector of :left and :right
 (defn next-path [path]
   (let [i (.lastIndexOf path :left)]
