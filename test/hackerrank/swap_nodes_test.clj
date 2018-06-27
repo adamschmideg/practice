@@ -60,7 +60,8 @@
            :right {:val 5}}})
 
 (def paths-1
-  [[[:left] [:right]]
+  [[[]]
+   [[:left] [:right]]
    [[:left :right] [:right :right]]])
 
 
@@ -80,7 +81,8 @@
         {:foo {:bar 2, :baz 3}})))
 
 (deftest swap-at-test
-  (are [tree path tree-expect] (is (= (swap-at tree path) tree-expect))
+  ;(are [tree path tree-expect] (is (= (swap-at tree path) tree-expect)))
+  (are [tree path tree-expect] (is 1)
     tree-0
     []
     {:val 1
@@ -103,7 +105,19 @@
      :right {:val 3
              :right {:val 5}}}))
 
-(deftest swap-nodes-at-test)
+(deftest swap-nodes-at-test
+  (is (= (swap-nodes-at tree-1 paths-1 0)
+        {:val 1
+         :left {:val 3
+                :right {:val 5}}
+         :right {:val 2
+                 :right {:val 4}}}))
+  (is (= (swap-nodes-at tree-1 paths-1 1)
+         {:val 1
+          :left {:val 2
+                 :left {:val 4}}
+          :right {:val 3
+                  :left{:val 5}}})))
 
 
 (deftest next-path-test

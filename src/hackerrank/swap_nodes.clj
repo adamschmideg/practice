@@ -31,8 +31,9 @@
               [[[:left] [:right]]]
               []]
         f (fn [[tree open-paths saved-paths] node]
-            (add-node tree open-paths saved-paths node))]
-    (reduce f init nodes)))
+            (add-node tree open-paths saved-paths node))
+        [tree open-paths saved-paths] (reduce f init nodes)]
+    [tree open-paths (into [[[]]] saved-paths)]))
 
 (defn assoc-dissoc-in [m ks v]
   (if (nil? v)
@@ -50,7 +51,8 @@
         (assoc-dissoc-in left-path right)
         (assoc-dissoc-in right-path left))))
 
-(defn swap-nodes-at [tree paths level])
+(defn swap-nodes-at [tree paths level]
+  (reduce swap-at tree (get paths level)))
 
 
 ; a vector of :left and :right
