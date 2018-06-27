@@ -119,11 +119,4 @@
           :right {:val 3
                   :left{:val 5}}})))
 
-
-(deftest next-path-test
-  (are [path next] (is (= (next-path path) next)) ;(str "Got: "(next-path path))))
-    [:left :left] [:left :right]
-    [:left :right] [:right :left]
-    [:right :right] [:right :left :left]))
-
 (run-tests)

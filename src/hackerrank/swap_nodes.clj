@@ -54,21 +54,4 @@
 (defn swap-nodes-at [tree paths level]
   (reduce swap-at tree (get paths level)))
 
-
-; a vector of :left and :right
-(defn next-path [path]
-  (let [i (.lastIndexOf path :left)]
-    (if (= i -1)
-      (into [:right] (repeat (count path) :left))
-      (vec
-        (concat
-          (subvec path 0 i)
-          [:right]
-          (repeat (- (count path) i 1) :left))))))
-
-(defn next-existing-path [tree path]
-  (->> (iterate next-path path)
-    (drop-while #(get-in tree (butlast %)))))
-
-
 (defn swapNodes [indexes queries])
