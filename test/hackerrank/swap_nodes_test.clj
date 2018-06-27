@@ -119,4 +119,8 @@
           :right {:val 3
                   :left{:val 5}}})))
 
+(deftest traverse-in-order-test
+  (is (= (traverse-in-order tree-1)
+        [2 4 1 3 5])))
+
 (run-tests)

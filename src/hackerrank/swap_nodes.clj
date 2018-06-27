@@ -54,4 +54,11 @@
 (defn swap-nodes-at [tree paths level]
   (reduce swap-at tree (get paths level)))
 
+(defn traverse-in-order [tree]
+  (if tree
+    (->  (traverse-in-order (:left tree))
+      (into [(:val tree)])
+      (into (traverse-in-order (:right tree))))
+    []))
+
 (defn swapNodes [indexes queries])
