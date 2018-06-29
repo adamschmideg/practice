@@ -1,4 +1,5 @@
-(ns hackerrank.swap-nodes)
+(ns hackerrank.swap-nodes
+  (:require [clojure.pprint :refer :all]))
 
 (defn add-node [tree open-paths saved-paths node]
     (let [last-level (dec (count saved-paths))
@@ -61,4 +62,29 @@
       (into (traverse-in-order (:right tree))))
     []))
 
-(defn swapNodes [indexes queries])
+(defn multiples [n maxn]
+  (take-while #(<= % maxn)
+    (map #(* n (inc %)) (range))))
+
+(defn swap-nodes-at-multiples [tree paths one-based-multiples]
+  (reduce #(swap-nodes-at %1 paths (dec %2))
+          tree
+          one-based-multiples))
+
+(defn swapNodes [indexes queries]
+  (let [nodes (->> indexes flatten (replace {-1 nil}))
+        [tree _ saved-paths] (parse-tree nodes)
+        one-based-levels (map #(multiples % (count saved-paths)) queries)
+        new-trees (next
+                    (reductions
+                       (fn [tree level] (swap-nodes-at-multiples tree saved-paths level))
+                       tree
+                       one-based-levels))
+        result-nodes (map traverse-in-order new-trees)]
+;    (pprint nodes)
+;    (pprint tree)
+;    (pprint saved-paths)
+;    (pprint one-based-levels)
+;    (pprint new-trees)
+;    (pprint result-nodes)
+    result-nodes))

@@ -52,6 +52,10 @@
    :left {:val 2}
    :right {:val 3}})
 
+(def paths-0
+  [[[]]
+   [[:left] [:right]]])
+
 (def tree-1
   {:val 1
    :left {:val 2
@@ -122,5 +126,31 @@
 (deftest traverse-in-order-test
   (is (= (traverse-in-order tree-1)
         [2 4 1 3 5])))
+
+(deftest multiples-test
+  (is (= (multiples 2 8)
+         [2 4 6 8])))
+
+(deftest swap-nodes-at-multiples-test
+  (is (= (swap-nodes-at-multiples tree-0 paths-0 [1 2])
+        {:val 1
+         :left {:val 3}
+         :right {:val 2}})))
+
+(deftest swapNodes-test
+  (are [indexes queries expected] (is (= (swapNodes indexes queries) expected))
+    [[2 3] [-1 -1] [-1 -1]]
+    [1 1]
+    [[3 1 2] [2 1 3]]
+
+    [[2 3] [4 5] [6 -1] [-1 7] [8 9] [10 11] [12 13] [-1 14] [-1 -1] [15 -1] [16 17] [-1 -1] [-1 -1] [-1 -1] [-1 -1] [-1 -1] [-1 -1]]
+    [2 3]
+    [[14 8 5 9 2 4 13 7 12 1 3 10 15 6 17 11 16]
+     [9 5 14 8 2 13 7 12 4 1 3 17 11 16 6 10 15]]
+
+    [[2 3] [4 -1] [5 -1] [6 -1] [7 8] [-1 9] [-1 -1] [10 11] [-1 -1] [-1 -1] [-1 -1]]
+    [2 4]
+    [[2 9 6 4 1 3 7 5 11 8 10]
+     [2 6 9 4 1 3 7 5 10 8 11]]))
 
 (run-tests)
