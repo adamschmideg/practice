@@ -47,10 +47,14 @@
   (let [left-path (conj path :left)
         right-path (conj path :right)
         left (get-in tree left-path)
-        right (get-in tree right-path)]
-    (-> tree
-        (assoc-dissoc-in left-path right)
-        (assoc-dissoc-in right-path left))))
+        right (get-in tree right-path)
+        result (-> tree
+                  (assoc-dissoc-in left-path right)
+                  (assoc-dissoc-in right-path left))]
+    (pprint {:tree tree, :path path, G:swapped result})
+    result))
+
+(defn get-paths-at [tree level])
 
 (defn swap-nodes-at [tree paths level]
   (reduce swap-at tree (get paths level)))
