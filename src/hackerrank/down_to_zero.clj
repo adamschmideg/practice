@@ -13,6 +13,14 @@
           down-seq (apply min-key count (map down-to-zero next-nums))]
       (conj down-seq n))))
 
+(defn naive-down-to-zero [n]
+  (if (zero? n)
+    0
+    (inc
+      (if-let [div (first (greatest-div n))]
+        (naive-down-to-zero div)
+        (naive-down-to-zero (dec n))))))
+
 (defn downToZero [n]
   (count (down-to-zero n)))
 
