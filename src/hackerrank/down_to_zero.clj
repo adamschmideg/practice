@@ -6,10 +6,13 @@
     (filter #(zero? (mod n %))
       (range sqrt n))))
 
-(defn downToZero [n]
+(defn down-to-zero [n]
   (if (zero? n)
-    0
-    (let [next-nums (into [(dec n)] (greatest-div n))]
-      (inc (apply min (map downToZero next-nums))))))
+    []
+    (let [next-nums (into [(dec n)] (greatest-div n))
+          down-seq (apply min-key count (map down-to-zero next-nums))]
+      (conj down-seq n))))
 
+(defn downToZero [n]
+  (count (down-to-zero n)))
 

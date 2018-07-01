@@ -15,4 +15,9 @@
     3 3
     4 3))
 
+(deftest hackerrank.down-to-zero-test
+  (are [n down] (is (= (down-to-zero n) down))
+    8 [1 2 4 8]
+    6 [1 2 3 6]))
+
 (run-tests)
